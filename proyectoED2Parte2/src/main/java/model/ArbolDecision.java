@@ -6,6 +6,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 import trees.BinaryTree;
@@ -54,7 +55,7 @@ public class ArbolDecision {
     
     
     public void setAnimal(Respuesta respuesta){
-        ArrayList<String> lista=respuesta.getRespuestas();
+        List<String> lista=respuesta.getRespuestas();
         
         if(listaPreguntas.size()==respuesta.getRespuestas().size()){
             Stack<BinaryTree<String>> s = new Stack<>();

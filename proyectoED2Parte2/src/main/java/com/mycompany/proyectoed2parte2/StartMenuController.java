@@ -198,23 +198,27 @@ public static  int id = 0;
             String nombreArchivoPreguntas = comboPreguntas.getValue();
             String nombreArchivoRespuestas = comboRespuestas.getValue();
             
+            List<String> preguntas = Lector.cargarListaPreguntas("archivos/preguntas/"+nombreArchivoPreguntas);
+            List<Respuesta> respuestas = Lector.cargarListaRespuestas("archivos/respuestas/"+nombreArchivoRespuestas);
+            
             if(nombreArchivoPreguntas==null || nombreArchivoRespuestas == null || txtCantidadPreguntas.getText().equals("")){
                 Avisos.avisoCamposIncompletos();
-            }else{
-                
-                    
+            }else{  
                 try{
+                    
                     int totalPreguntas = Integer.valueOf(txtCantidadPreguntas.getText());
-                    ArrayList<String> preguntas = Lector.cargarListaPreguntas("archivos/preguntas/"+nombreArchivoPreguntas);
-                    ArrayList<Respuesta> respuestas = Lector.cargarListaRespuestas("archivos/respuestas/"+nombreArchivoRespuestas);
                     
                     //Seccionando la lista de preguntas en funcion del total de preguntas que debe hacer la computadora
-                    preguntas.subList(0, totalPreguntas);
+                    preguntas = preguntas.subList(0, totalPreguntas);
+                    
+                    //Solo debemos seccionar la lista de respuestas de si/no en la lista de respuestas que tenemos
+                    for(Respuesta r: respuestas){
+                        r.setRespuestas(r.getRespuestas().subList(0, totalPreguntas));
+                    }
                     
                     //Creamos el singleton con los archivos seleccionados, seccionando la lista en funcion de el total de preguntas seleccionadas
 
-//                    GameSingleton partida = GameSingleton.getInstance(preguntas, respuestas, true);
-                    
+
                     
                     
                     
@@ -227,7 +231,12 @@ public static  int id = 0;
                 }catch(IndexOutOfBoundsException ex){
                     //En este caso no hay suficientes elementos en la lista, solo se escoje la lista tal y como es
                     System.out.println("No se hace nada con preguntas");
+                    System.out.println("No se hace nada con las respuestas de cada respuesta correcta");
                 }
+                
+                
+                System.out.println(preguntas);
+                System.out.println(respuestas);
                     
                 
 

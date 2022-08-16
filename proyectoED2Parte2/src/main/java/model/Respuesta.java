@@ -1,13 +1,13 @@
 
 package model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Respuesta {
     private String animal;
-    private ArrayList<String> respuestas;   //Lista de las respuestas con si y no
+    private List<String> respuestas;   //Lista de las respuestas con si y no
 
-    public Respuesta(String animal, ArrayList<String> respuestas) {
+    public Respuesta(String animal, List<String> respuestas) {
         this.animal = animal;
         this.respuestas = respuestas;
     }
@@ -16,13 +16,17 @@ public class Respuesta {
         return animal;
     }
 
-    public ArrayList<String> getRespuestas() {
+    public List<String> getRespuestas() {
         return respuestas;
     }
 
     @Override
     public String toString() {
         return "Respuesta{" + "animal=" + animal + ", respuestas=" + respuestas + '}';
+    }
+
+    public void setRespuestas(List<String> respuestas) {
+        this.respuestas = respuestas;
     }
     
     

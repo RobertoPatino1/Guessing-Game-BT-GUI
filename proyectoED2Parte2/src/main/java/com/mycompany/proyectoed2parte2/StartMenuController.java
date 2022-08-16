@@ -32,12 +32,12 @@ public static  int id = 0;
     private ArrayList<String> listaRespuestas = new ArrayList<>();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        actualizarListaArchivos();
     }    
     
     @FXML
     private void jugar(ActionEvent event) {
-        
+        actualizarListaArchivos();
         if(listaPreguntas.isEmpty()||listaRespuestas.isEmpty()){
             Alert alerta = new Alert(Alert.AlertType.ERROR,"Por favor, asegurese de cargar sus preguntas y respuestas antes de jugar"); //FIXME
             alerta.setTitle("Error");
@@ -45,6 +45,9 @@ public static  int id = 0;
         }else{
            borderPane.getChildren().clear(); 
         }
+        
+        System.out.println(listaPreguntas);
+        System.out.println(listaRespuestas);
         
         
         //Cargamos todas las preguntas y respuestas
@@ -81,6 +84,8 @@ public static  int id = 0;
 
             id++;
             
+            actualizarListaArchivos();
+            
         }
         
 
@@ -102,12 +107,20 @@ public static  int id = 0;
     
     private void actualizarListaArchivos(){
 
-        File[] files = new File("archivos/").listFiles();
+        File[] preguntas = new File("archivos/preguntas/").listFiles();
+        File[] respuestas = new File("archivos/respuestas/").listFiles();
         //If this pathname does not denote a directory, then listFiles() returns null. 
 
-        for (File file : files) {
+        for (File file : preguntas) {
             if (file.isFile()) {
-                listaPreguntas.add(file.getName());
+                if(!listaPreguntas.contains(file.getName()))
+                    listaPreguntas.add(file.getName());
+            }
+        }
+        for (File file : respuestas) {
+            if (file.isFile()) {
+                if(!listaRespuestas.contains(file.getName()))
+                    listaRespuestas.add(file.getName());
             }
         }
     }

@@ -13,14 +13,21 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 
 
@@ -30,6 +37,10 @@ public static  int id = 0;
     private BorderPane borderPane;
     private ArrayList<String> listaPreguntas = new ArrayList<>();
     private ArrayList<String> listaRespuestas = new ArrayList<>();
+    @FXML
+    private Label lblTitulo;
+    @FXML
+    private VBox contenedor;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         actualizarListaArchivos();
@@ -43,14 +54,61 @@ public static  int id = 0;
             alerta.setTitle("Error");
             alerta.show();  
         }else{
-           borderPane.getChildren().clear(); 
+           Button iniciarPartida = new Button("Jugar!");
+           iniciarPartida.setFont(new Font("Arial",15));
+            
+
+           Label lblPreguntas = new Label("Selecciona el archivo de preguntas!");
+           Label lblRespuestas = new Label("Selecciona el archivo de respuestas!");
+           
+           lblPreguntas.setFont(new Font("Arial", 15));
+           lblRespuestas.setFont(new Font("Arial", 15));
+           
+           contenedor.setPadding(new Insets(20));
+
+            
+            
+            //Creamos los cb
+            ComboBox<String> comboPreguntas = new ComboBox<>();
+            
+            ComboBox<String> comboRespuestas = new ComboBox<>();
+            
+            comboPreguntas.getItems().setAll(listaPreguntas);
+            comboRespuestas.getItems().setAll(listaRespuestas);
+            
+            comboPreguntas.setPromptText("Preguntas: ");
+            comboRespuestas.setPromptText("Respuestas: ");
+            VBox.setMargin(comboPreguntas, new Insets(10, 0, 20, 0));
+            VBox.setMargin(comboRespuestas, new Insets(10, 0, 20, 0));
+            
+            
+            contenedor.getChildren().setAll(lblPreguntas,comboPreguntas,lblRespuestas,comboRespuestas,iniciarPartida);
+            
+            borderPane.setCenter(contenedor);
+            
+            
+            iniciarPartida.setOnAction(e -> {
+                String nombreArchivoPreguntas = comboPreguntas.getValue();
+                String nombreArchivoRespuestas = comboRespuestas.getValue();
+                
+                if(nombreArchivoPreguntas==null || nombreArchivoRespuestas == null){
+                    Alert alerta = new Alert(Alert.AlertType.ERROR,"Asegurese de seleccionar todos los campos"); //FIXME
+                    alerta.setTitle("Error");
+                    alerta.setHeaderText("Ha ocurrido un error:");
+                    alerta.showAndWait();  
+                }else{
+                    
+                    //Caso contrario cambiamos de escena pasando como parametro lo recuperado
+                    System.out.println(nombreArchivoPreguntas);
+                    System.out.println(nombreArchivoRespuestas);
+                    
+                }
+            });
         }
         
-        System.out.println(listaPreguntas);
-        System.out.println(listaRespuestas);
+
         
         
-        //Cargamos todas las preguntas y respuestas
         
     }
 
@@ -59,7 +117,7 @@ public static  int id = 0;
         Alert aviso = new Alert(Alert.AlertType.INFORMATION,"Asegurese de seleccionar primero el archivo de preguntas \ny luego el archivo de respuestas"); //FIXME
         aviso.setHeaderText("Importante: ");
 
-        aviso.show();  
+        aviso.showAndWait();  
         try{
         FileChooser fileChooser = new FileChooser(); //Este nos permite abrir el explorador de archivo
         fileChooser.setTitle("Cargar archivos");
@@ -124,5 +182,7 @@ public static  int id = 0;
             }
         }
     }
+    
+    
 
 }

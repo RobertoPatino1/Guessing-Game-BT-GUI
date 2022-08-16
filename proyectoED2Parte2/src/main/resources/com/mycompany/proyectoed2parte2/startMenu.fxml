@@ -9,14 +9,14 @@
 
 <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectoed2parte2.StartMenuController">
    <top>
-      <Label text="20 Preguntas" BorderPane.alignment="CENTER">
+      <Label fx:id="lblTitulo" text="20 Preguntas" BorderPane.alignment="CENTER">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
    </top>
    <center>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="contenedor" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#jugar" prefHeight="38.0" prefWidth="152.0" text="Jugar!">
                <font>

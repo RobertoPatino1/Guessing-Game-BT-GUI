@@ -23,11 +23,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import model.Respuesta;
+import util.Avisos;
 import util.GameSingleton;
 import util.Lector;
 
@@ -155,19 +157,26 @@ public static  int id = 0;
 
        Label lblPreguntas = new Label("Selecciona el archivo de preguntas!");
        Label lblRespuestas = new Label("Selecciona el archivo de respuestas!");
+       Label lblCantidadPreguntas = new Label("Indique el numero máximo de preguntas a realizar!");
 
        lblPreguntas.setFont(new Font("Arial", 15));
        lblRespuestas.setFont(new Font("Arial", 15));
+       lblCantidadPreguntas.setFont(new Font("Arial", 15));
+       
 
        contenedor.setPadding(new Insets(20));
-
-
-
+       
+       
+       //Se crea el textfield
+        TextField txtCantidadPreguntas = new TextField();
+        txtCantidadPreguntas.setMinWidth(40);
+        txtCantidadPreguntas.setMaxWidth(40);
+        
         //Creamos los cb
         ComboBox<String> comboPreguntas = new ComboBox<>();
-
+        
         ComboBox<String> comboRespuestas = new ComboBox<>();
-
+        
         comboPreguntas.getItems().setAll(listaPreguntas);
         System.out.println(listaPreguntas);
         
@@ -177,38 +186,51 @@ public static  int id = 0;
         comboRespuestas.setPromptText("Respuestas: ");
         VBox.setMargin(comboPreguntas, new Insets(10, 0, 20, 0));
         VBox.setMargin(comboRespuestas, new Insets(10, 0, 20, 0));
+        VBox.setMargin(txtCantidadPreguntas, new Insets(10, 0, 20, 0));
 
 
-        contenedor.getChildren().setAll(lblPreguntas,comboPreguntas,lblRespuestas,comboRespuestas,iniciarPartida);
+        contenedor.getChildren().setAll(lblPreguntas,comboPreguntas,lblRespuestas,comboRespuestas,lblCantidadPreguntas,txtCantidadPreguntas,iniciarPartida);
 
         borderPane.setCenter(contenedor);
 
-
+        
         iniciarPartida.setOnAction(e -> {
             String nombreArchivoPreguntas = comboPreguntas.getValue();
             String nombreArchivoRespuestas = comboRespuestas.getValue();
-
-            if(nombreArchivoPreguntas==null || nombreArchivoRespuestas == null){
-                Alert alerta = new Alert(Alert.AlertType.ERROR,"Asegurese de seleccionar todos los campos"); //FIXME
-                alerta.setTitle("Error");
-                alerta.setHeaderText("Ha ocurrido un error:");
-                alerta.showAndWait();  
+            
+            if(nombreArchivoPreguntas==null || nombreArchivoRespuestas == null || txtCantidadPreguntas.getText().equals("")){
+                Avisos.avisoCamposIncompletos();
             }else{
+                
+                    
+                try{
+                    int totalPreguntas = Integer.valueOf(txtCantidadPreguntas.getText());
+                    ArrayList<String> preguntas = Lector.cargarListaPreguntas("archivos/preguntas/"+nombreArchivoPreguntas);
+                    ArrayList<Respuesta> respuestas = Lector.cargarListaRespuestas("archivos/respuestas/"+nombreArchivoRespuestas);
+                    
+                    //Seccionando la lista de preguntas en funcion del total de preguntas que debe hacer la computadora
+                    preguntas.subList(0, totalPreguntas);
+                    
+                    //Creamos el singleton con los archivos seleccionados, seccionando la lista en funcion de el total de preguntas seleccionadas
 
+//                    GameSingleton partida = GameSingleton.getInstance(preguntas, respuestas, true);
+                    
+                    
+                    
+                    
+                    //Cambiamos de ventana
+                    
+                    
+                    
+                }catch(NumberFormatException ex){
+                    Avisos.avisoCamposErroneos();
+                }catch(IndexOutOfBoundsException ex){
+                    //En este caso no hay suficientes elementos en la lista, solo se escoje la lista tal y como es
+                    System.out.println("No se hace nada con preguntas");
+                }
+                    
                 
 
-                
-                
-                ArrayList<String> preguntas = Lector.cargarListaPreguntas("archivos/preguntas/"+nombreArchivoPreguntas);
-                ArrayList<Respuesta> respuestas = Lector.cargarListaRespuestas("archivos/respuestas/"+nombreArchivoRespuestas);
-
-                //Creamos el singleton con los archivos seleccionados
-                
-                GameSingleton partida = GameSingleton.getInstance(preguntas, respuestas, true);
-                System.out.println(preguntas);
-                System.out.println(respuestas);
-                
-                //Cambiamos de ventana
 
                 
 

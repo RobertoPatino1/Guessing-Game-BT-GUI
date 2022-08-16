@@ -2,19 +2,22 @@
 package util;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import model.Respuesta;
 
 public class Lector {
     
     
     public static ArrayList<String> cargarListaPreguntas(String path){
-        System.out.println("Path del archivo de preguntas-->"+path);
         ArrayList<String> preguntas = new ArrayList<>();
         try(BufferedReader lector = new BufferedReader(new FileReader(path))){
             String line;
@@ -65,5 +68,40 @@ public class Lector {
         return respuestas;
         
     }
+    
+    
+    
+//    public static Thread createCountdown(VBox contenedor){
+//        contenedor.getChildren().clear();
+//        ArrayList<String> fotos = new ArrayList<>();
+//        fotos.add("numero5.jpg");
+//        fotos.add("numero4.jpg");
+//        fotos.add("numero3.jpg");
+//        fotos.add("numero2.jpg");
+//        fotos.add("numero1.jpg");
+//        ImageView imageView = new ImageView();
+//        Thread t = new Thread(() ->{
+//            for(String foto: fotos){
+//                try{            
+//                    String filename = "archivos/imagenes/"+foto;
+//                    Image image = new Image(new FileInputStream(filename));
+//                    imageView.setImage(image);
+//                    try{
+//                        Thread.sleep(4000);
+//                    }catch(InterruptedException e){
+//                        System.out.println(e);
+//                    }                      
+//                }catch (FileNotFoundException ex) { 
+//                    ex.printStackTrace();
+//                }catch(IllegalArgumentException e){
+//                    e.printStackTrace();
+//                }
+//                
+//                contenedor.getChildren().add(imageView);
+//            }
+//        });
+//        return t;
+//
+//    }
     
 }

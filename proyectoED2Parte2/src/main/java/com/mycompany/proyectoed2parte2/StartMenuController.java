@@ -6,6 +6,8 @@
 package com.mycompany.proyectoed2parte2;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.FileAlreadyExistsException;
@@ -23,7 +25,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -44,9 +50,12 @@ public static  int id = 0;
     private Label lblTitulo;
     @FXML
     private VBox contenedor;
+    
+    private ImageView imageView;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         actualizarListaArchivos();
+        imageView = new ImageView();
     }    
     
     @FXML
@@ -233,19 +242,56 @@ public static  int id = 0;
                     System.out.println("No se hace nada con preguntas");
                     System.out.println("No se hace nada con las respuestas de cada respuesta correcta");
                 }
-                
-                
                 System.out.println(preguntas);
                 System.out.println(respuestas);
-                    
                 
-
-
+                //Mostramos la cuenta regresiva
                 
-
+                Countdown countdown = new Countdown();
+                countdown.setDaemon(true);
+                
+                lblTitulo.setText("Piensa en un animal!");
+                contenedor.getChildren().clear();
+                contenedor.getChildren().add(imageView);
+                countdown.start();
             }
         });
         
+    }
+    
+    
+    
+        private class Countdown extends Thread{
+
+            @Override
+            public void run(){
+                ArrayList<String> fotos = new ArrayList<>();
+                fotos.add("numero5.jpg");
+                fotos.add("numero4.jpg");
+                fotos.add("numero3.jpg");
+                fotos.add("numero2.jpg");
+                fotos.add("numero1.jpg");
+
+                for(String foto: fotos){
+                    try{            
+                        String filename = "archivos/imagenes/"+foto;
+                        System.out.println(filename);
+                        Image image = new Image(new FileInputStream(filename));
+                        imageView.setImage(image);
+                        try{
+                            Thread.sleep(2000);
+                        }catch(InterruptedException e){
+                            System.out.println(e);
+                        }                      
+                    }catch (FileNotFoundException ex) { 
+                        ex.printStackTrace();
+                    }catch(IllegalArgumentException e){
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+
     }
 
 }

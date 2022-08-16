@@ -12,6 +12,7 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -19,50 +20,66 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 
 
 public class StartMenuController implements Initializable {
 public static  int id = 0;
-
+    @FXML
+    private BorderPane borderPane;
+    private ArrayList<String> listaPreguntas = new ArrayList<>();
+    private ArrayList<String> listaRespuestas = new ArrayList<>();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
     }    
     
     @FXML
     private void jugar(ActionEvent event) {
-        //Saltamos de ventana???
+        
+        if(listaPreguntas.isEmpty()||listaRespuestas.isEmpty()){
+            Alert alerta = new Alert(Alert.AlertType.ERROR,"Por favor, asegurese de cargar sus preguntas y respuestas antes de jugar"); //FIXME
+            alerta.setTitle("Error");
+            alerta.show();  
+        }else{
+           borderPane.getChildren().clear(); 
+        }
+        
+        
+        //Cargamos todas las preguntas y respuestas
+        
     }
 
     @FXML
     private void cargarPreguntas(ActionEvent event) throws IOException {
+        Alert aviso = new Alert(Alert.AlertType.INFORMATION,"Asegurese de seleccionar primero el archivo de preguntas \ny luego el archivo de respuestas"); //FIXME
+        aviso.setHeaderText("Importante: ");
 
+        aviso.show();  
         try{
         FileChooser fileChooser = new FileChooser(); //Este nos permite abrir el explorador de archivo
-        fileChooser.setTitle("Buscar foto");
+        fileChooser.setTitle("Cargar archivos");
        
         
 
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT", "*.txt"));
         
 
-        List<File> txtFile = fileChooser.showOpenMultipleDialog(null);
+        List<File> fileList = fileChooser.showOpenMultipleDialog(null);
         
-        if(txtFile!=null){
-            for(File f: txtFile){
-               File txt = new File("file:"+f.getAbsolutePath()); 
-                //Se copia la imagen
-                Path from = Paths.get(f.toURI());
-                Path to = Paths.get("archivos/"+id+"_"+f.getName());
+        
+        if(fileList!=null){
 
-                Files.copy(from, to);
-                
-                
-            }
-            id++;
+            Path fromPreguntas = Paths.get(fileList.get(0).toURI());
+            Path toPreguntas = Paths.get("archivos/preguntas/"+id+"_"+fileList.get(1).getName());
+            Path fromRespuestas = Paths.get(fileList.get(0).toURI());
+            Path toRespuestas = Paths.get("archivos/respuestas/"+id+"_"+fileList.get(0).getName());
             
+            Files.copy(fromPreguntas, toPreguntas);
+            Files.copy(fromRespuestas, toRespuestas);
 
+            id++;
             
         }
         
@@ -72,7 +89,7 @@ public static  int id = 0;
             Alert alerta = new Alert(Alert.AlertType.ERROR,"El archivo que se ha seleccionado ya se encuentra almacenado, por favor seleccione otro"); //FIXME
             alerta.setTitle("Error");
             alerta.setHeaderText("Ha ocurrido un error:");
-            System.out.println(e.getClass());
+
             alerta.show();  
        }
     }
@@ -80,6 +97,19 @@ public static  int id = 0;
     @FXML
     private void salir(ActionEvent event) {
         System.exit(0);
+    }
+    
+    
+    private void actualizarListaArchivos(){
+
+        File[] files = new File("archivos/").listFiles();
+        //If this pathname does not denote a directory, then listFiles() returns null. 
+
+        for (File file : files) {
+            if (file.isFile()) {
+                listaPreguntas.add(file.getName());
+            }
+        }
     }
 
 }

@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectoed2parte2.StartMenuController">
    <top>
       <Label text="20 Preguntas" BorderPane.alignment="CENTER">
@@ -27,7 +26,7 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#cargarPreguntas" prefHeight="38.0" prefWidth="154.0" text="Cargar preguntas">
+            <Button mnemonicParsing="false" onAction="#cargarPreguntas" prefHeight="38.0" prefWidth="263.0" text="Cargar preguntas y respuestas">
                <font>
                   <Font size="17.0" />
                </font>

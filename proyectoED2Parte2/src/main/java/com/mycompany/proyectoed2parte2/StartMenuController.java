@@ -169,6 +169,8 @@ public static  int id = 0;
         ComboBox<String> comboRespuestas = new ComboBox<>();
 
         comboPreguntas.getItems().setAll(listaPreguntas);
+        System.out.println(listaPreguntas);
+        
         comboRespuestas.getItems().setAll(listaRespuestas);
 
         comboPreguntas.setPromptText("Preguntas: ");
@@ -192,19 +194,22 @@ public static  int id = 0;
                 alerta.setHeaderText("Ha ocurrido un error:");
                 alerta.showAndWait();  
             }else{
+
                 
-                ArrayList<String> preguntas = Lector.cargarListaPreguntas("archivos/peguntas/"+nombreArchivoPreguntas);
+
+                
+                
+                ArrayList<String> preguntas = Lector.cargarListaPreguntas("archivos/preguntas/"+nombreArchivoPreguntas);
                 ArrayList<Respuesta> respuestas = Lector.cargarListaRespuestas("archivos/respuestas/"+nombreArchivoRespuestas);
-                
+
                 //Creamos el singleton con los archivos seleccionados
                 
                 GameSingleton partida = GameSingleton.getInstance(preguntas, respuestas, true);
+                System.out.println(preguntas);
+                System.out.println(respuestas);
                 
-                System.out.println(partida.getPreguntas());
-                
-                System.out.println(partida.getRespuestas());
+                //Cambiamos de ventana
 
-                //Caso contrario cambiamos de escena pasando como parametro lo recuperado
                 
 
             }

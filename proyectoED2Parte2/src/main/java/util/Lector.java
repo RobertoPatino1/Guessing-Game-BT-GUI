@@ -14,6 +14,7 @@ public class Lector {
     
     
     public static ArrayList<String> cargarListaPreguntas(String path){
+        System.out.println("Path del archivo de preguntas-->"+path);
         ArrayList<String> preguntas = new ArrayList<>();
         try(BufferedReader lector = new BufferedReader(new FileReader(path))){
             String line;
@@ -22,7 +23,8 @@ public class Lector {
             }
             
         }catch(FileNotFoundException e){
-            System.out.println("File does not exists!");
+            e.printStackTrace();
+            System.out.println("Questions file does not exists!");
         }catch(IOException e){
             e.printStackTrace();
         }catch(Exception e){
@@ -35,6 +37,7 @@ public class Lector {
     
     
     public static ArrayList<Respuesta> cargarListaRespuestas(String path){
+        
         ArrayList<Respuesta> respuestas = new ArrayList<>();
         try(BufferedReader lector = new BufferedReader(new FileReader(path))){
             
@@ -50,7 +53,9 @@ public class Lector {
             }
             
         }catch(FileNotFoundException e){
-            System.out.println("File alredy exists!");
+            e.printStackTrace();
+            System.out.println("Answers file does not exists!");
+            
         }catch(IOException e){
             e.printStackTrace();
         }catch(Exception e){

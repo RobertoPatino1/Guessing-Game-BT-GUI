@@ -54,56 +54,7 @@ public static  int id = 0;
             alerta.setTitle("Error");
             alerta.show();  
         }else{
-           Button iniciarPartida = new Button("Jugar!");
-           iniciarPartida.setFont(new Font("Arial",15));
-            
-
-           Label lblPreguntas = new Label("Selecciona el archivo de preguntas!");
-           Label lblRespuestas = new Label("Selecciona el archivo de respuestas!");
-           
-           lblPreguntas.setFont(new Font("Arial", 15));
-           lblRespuestas.setFont(new Font("Arial", 15));
-           
-           contenedor.setPadding(new Insets(20));
-
-            
-            
-            //Creamos los cb
-            ComboBox<String> comboPreguntas = new ComboBox<>();
-            
-            ComboBox<String> comboRespuestas = new ComboBox<>();
-            
-            comboPreguntas.getItems().setAll(listaPreguntas);
-            comboRespuestas.getItems().setAll(listaRespuestas);
-            
-            comboPreguntas.setPromptText("Preguntas: ");
-            comboRespuestas.setPromptText("Respuestas: ");
-            VBox.setMargin(comboPreguntas, new Insets(10, 0, 20, 0));
-            VBox.setMargin(comboRespuestas, new Insets(10, 0, 20, 0));
-            
-            
-            contenedor.getChildren().setAll(lblPreguntas,comboPreguntas,lblRespuestas,comboRespuestas,iniciarPartida);
-            
-            borderPane.setCenter(contenedor);
-            
-            
-            iniciarPartida.setOnAction(e -> {
-                String nombreArchivoPreguntas = comboPreguntas.getValue();
-                String nombreArchivoRespuestas = comboRespuestas.getValue();
-                
-                if(nombreArchivoPreguntas==null || nombreArchivoRespuestas == null){
-                    Alert alerta = new Alert(Alert.AlertType.ERROR,"Asegurese de seleccionar todos los campos"); //FIXME
-                    alerta.setTitle("Error");
-                    alerta.setHeaderText("Ha ocurrido un error:");
-                    alerta.showAndWait();  
-                }else{
-                    
-                    //Caso contrario cambiamos de escena pasando como parametro lo recuperado
-                    System.out.println(nombreArchivoPreguntas);
-                    System.out.println(nombreArchivoRespuestas);
-                    
-                }
-            });
+            escogerNombresArchivos();
         }
         
 
@@ -183,6 +134,58 @@ public static  int id = 0;
         }
     }
     
-    
+    private void escogerNombresArchivos(){
+       Button iniciarPartida = new Button("Jugar!");
+       iniciarPartida.setFont(new Font("Arial",15));
+
+
+       Label lblPreguntas = new Label("Selecciona el archivo de preguntas!");
+       Label lblRespuestas = new Label("Selecciona el archivo de respuestas!");
+
+       lblPreguntas.setFont(new Font("Arial", 15));
+       lblRespuestas.setFont(new Font("Arial", 15));
+
+       contenedor.setPadding(new Insets(20));
+
+
+
+        //Creamos los cb
+        ComboBox<String> comboPreguntas = new ComboBox<>();
+
+        ComboBox<String> comboRespuestas = new ComboBox<>();
+
+        comboPreguntas.getItems().setAll(listaPreguntas);
+        comboRespuestas.getItems().setAll(listaRespuestas);
+
+        comboPreguntas.setPromptText("Preguntas: ");
+        comboRespuestas.setPromptText("Respuestas: ");
+        VBox.setMargin(comboPreguntas, new Insets(10, 0, 20, 0));
+        VBox.setMargin(comboRespuestas, new Insets(10, 0, 20, 0));
+
+
+        contenedor.getChildren().setAll(lblPreguntas,comboPreguntas,lblRespuestas,comboRespuestas,iniciarPartida);
+
+        borderPane.setCenter(contenedor);
+
+
+        iniciarPartida.setOnAction(e -> {
+            String nombreArchivoPreguntas = comboPreguntas.getValue();
+            String nombreArchivoRespuestas = comboRespuestas.getValue();
+
+            if(nombreArchivoPreguntas==null || nombreArchivoRespuestas == null){
+                Alert alerta = new Alert(Alert.AlertType.ERROR,"Asegurese de seleccionar todos los campos"); //FIXME
+                alerta.setTitle("Error");
+                alerta.setHeaderText("Ha ocurrido un error:");
+                alerta.showAndWait();  
+            }else{
+
+                //Caso contrario cambiamos de escena pasando como parametro lo recuperado
+                System.out.println(nombreArchivoPreguntas);
+                System.out.println(nombreArchivoRespuestas);
+
+            }
+        });
+        
+    }
 
 }

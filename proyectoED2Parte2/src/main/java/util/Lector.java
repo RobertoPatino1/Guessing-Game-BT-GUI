@@ -22,7 +22,7 @@ public class Lector {
             }
             
         }catch(FileNotFoundException e){
-            System.out.println("File alredy exists!");
+            System.out.println("File does not exists!");
         }catch(IOException e){
             e.printStackTrace();
         }catch(Exception e){

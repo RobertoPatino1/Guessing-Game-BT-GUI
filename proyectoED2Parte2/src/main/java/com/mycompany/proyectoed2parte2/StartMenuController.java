@@ -27,6 +27,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
+import model.Respuesta;
+import util.Lector;
 
 
 public class StartMenuController implements Initializable {
@@ -176,10 +178,14 @@ public static  int id = 0;
                 alerta.setHeaderText("Ha ocurrido un error:");
                 alerta.showAndWait();  
             }else{
+                
+                ArrayList<String> preguntas = Lector.cargarListaPreguntas("archivos/"+nombreArchivoPreguntas);
+                ArrayList<Respuesta> respuestas = Lector.cargarListaRespuestas("archivos/"+nombreArchivoPreguntas);
+                //Creamos el singleton con los archivos seleccionados
+                
 
                 //Caso contrario cambiamos de escena pasando como parametro lo recuperado
-                System.out.println(nombreArchivoPreguntas);
-                System.out.println(nombreArchivoRespuestas);
+
 
             }
         });

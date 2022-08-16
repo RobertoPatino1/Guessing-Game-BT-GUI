@@ -2,28 +2,38 @@
 package util;
 
 import java.util.ArrayList;
-import javafx.scene.paint.Color;
+import model.Respuesta;
 
 public class GameSingleton {
     
     private static GameSingleton gameInstance;
     private ArrayList<String> preguntas; 
-    private ArrayList<String> respuestas;
+    private ArrayList<Respuesta> respuestas;
     
     
     
-    private GameSingleton(ArrayList<String> preguntas, ArrayList<String> respuestas){
+    private GameSingleton(ArrayList<String> preguntas, ArrayList<Respuesta> respuestas){
         this.preguntas = preguntas;
         this.respuestas = respuestas;
     }
     
     
     
-    public static GameSingleton getInstance(ArrayList<String> listaPreguntas, ArrayList<String> listaRespuestas, boolean reset){
+    public static GameSingleton getInstance(ArrayList<String> listaPreguntas, ArrayList<Respuesta> listaRespuestas, boolean reset){
         if(gameInstance==null || reset){
             gameInstance = new GameSingleton(listaPreguntas,listaRespuestas);
         }
         return gameInstance;
     }
+
+    public ArrayList<String> getPreguntas() {
+        return preguntas;
+    }
+
+    public ArrayList<Respuesta> getRespuestas() {
+        return respuestas;
+    }
+    
+    
     
 }

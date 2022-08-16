@@ -28,6 +28,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import model.Respuesta;
+import util.GameSingleton;
 import util.Lector;
 
 
@@ -65,28 +66,40 @@ public static  int id = 0;
 
     @FXML
     private void cargarPreguntas(ActionEvent event) throws IOException {
-        Alert aviso = new Alert(Alert.AlertType.INFORMATION,"Asegurese de seleccionar primero el archivo de preguntas \ny luego el archivo de respuestas"); //FIXME
+        ArrayList<File> listaArchivos = new ArrayList<>();
+        Alert aviso = new Alert(Alert.AlertType.INFORMATION,"Primero deberá seleccionar el archivo de preguntas, \nluego el archivo de respuestas"); //FIXME
         aviso.setHeaderText("Importante: ");
 
         aviso.showAndWait();  
         try{
         FileChooser fileChooser = new FileChooser(); //Este nos permite abrir el explorador de archivo
-        fileChooser.setTitle("Cargar archivos");
+        
        
         
 
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT", "*.txt"));
         
 
-        List<File> fileList = fileChooser.showOpenMultipleDialog(null);
+        fileChooser.setTitle("Cargar Preguntas");
+        File archivoPreguntas = fileChooser.showOpenDialog(null);
+        
+        fileChooser.setTitle("Cargar Respuestas");
+        File archivoRespuestas = fileChooser.showOpenDialog(null);
         
         
-        if(fileList!=null){
+        
+        listaArchivos.add(archivoPreguntas);
+        listaArchivos.add(archivoRespuestas);
+        
 
-            Path fromPreguntas = Paths.get(fileList.get(0).toURI());
-            Path toPreguntas = Paths.get("archivos/preguntas/"+id+"_"+fileList.get(1).getName());
-            Path fromRespuestas = Paths.get(fileList.get(0).toURI());
-            Path toRespuestas = Paths.get("archivos/respuestas/"+id+"_"+fileList.get(0).getName());
+        
+
+        if(!listaArchivos.isEmpty() && listaArchivos.size()>=2){
+
+            Path fromPreguntas = Paths.get(listaArchivos.get(0).toURI());
+            Path toPreguntas = Paths.get("archivos/preguntas/"+id+"_"+listaArchivos.get(0).getName());
+            Path fromRespuestas = Paths.get(listaArchivos.get(1).toURI());
+            Path toRespuestas = Paths.get("archivos/respuestas/"+id+"_"+listaArchivos.get(1).getName());
             
             Files.copy(fromPreguntas, toPreguntas);
             Files.copy(fromRespuestas, toRespuestas);
@@ -96,6 +109,7 @@ public static  int id = 0;
             actualizarListaArchivos();
             
         }
+        //Hacer algun catch???
         
 
     
@@ -179,13 +193,19 @@ public static  int id = 0;
                 alerta.showAndWait();  
             }else{
                 
-                ArrayList<String> preguntas = Lector.cargarListaPreguntas("archivos/"+nombreArchivoPreguntas);
-                ArrayList<Respuesta> respuestas = Lector.cargarListaRespuestas("archivos/"+nombreArchivoPreguntas);
+                ArrayList<String> preguntas = Lector.cargarListaPreguntas("archivos/peguntas/"+nombreArchivoPreguntas);
+                ArrayList<Respuesta> respuestas = Lector.cargarListaRespuestas("archivos/respuestas/"+nombreArchivoRespuestas);
+                
                 //Creamos el singleton con los archivos seleccionados
                 
+                GameSingleton partida = GameSingleton.getInstance(preguntas, respuestas, true);
+                
+                System.out.println(partida.getPreguntas());
+                
+                System.out.println(partida.getRespuestas());
 
                 //Caso contrario cambiamos de escena pasando como parametro lo recuperado
-
+                
 
             }
         });

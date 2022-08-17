@@ -17,6 +17,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -52,10 +53,13 @@ public static  int id = 0;
     private VBox contenedor;
     
     private ImageView imageView;
+    private Label lblCountdown = new Label();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         actualizarListaArchivos();
         imageView = new ImageView();
+
+        lblCountdown.setFont(new Font("Arial", 50));
     }    
     
     @FXML
@@ -225,15 +229,6 @@ public static  int id = 0;
                         r.setRespuestas(r.getRespuestas().subList(0, totalPreguntas));
                     }
                     
-                    //Creamos el singleton con los archivos seleccionados, seccionando la lista en funcion de el total de preguntas seleccionadas
-
-
-                    
-                    
-                    
-                    //Cambiamos de ventana
-                    
-                    
                     
                 }catch(NumberFormatException ex){
                     Avisos.avisoCamposErroneos();
@@ -242,56 +237,40 @@ public static  int id = 0;
                     System.out.println("No se hace nada con preguntas");
                     System.out.println("No se hace nada con las respuestas de cada respuesta correcta");
                 }
+                
+                
                 System.out.println(preguntas);
                 System.out.println(respuestas);
                 
-                //Mostramos la cuenta regresiva
                 
-                Countdown countdown = new Countdown();
-                countdown.setDaemon(true);
-                
-                lblTitulo.setText("Piensa en un animal!");
+                //Creando el objeto Singleton
+                GameSingleton.getInstance(preguntas,respuestas,true);
+
                 contenedor.getChildren().clear();
-                contenedor.getChildren().add(imageView);
-                countdown.start();
+          
+                lblTitulo.setText("Piensa en un animal!");
+
+                Button btnJugar = new Button("Iniciar la partida!");
+                Label lblListo = new Label("Listo?");
+                
+                lblListo.setFont(new Font("Arial",20));
+                lblListo.setPadding(new Insets(10, 10, 10, 10));
+                btnJugar.setFont(new Font("Arial", 20));
+                
+                contenedor.getChildren().addAll(lblListo,btnJugar);
+                
+                
+                btnJugar.setOnAction(eh -> {
+                    System.out.println("Se cambia de pantalla al juego");
+                });
+
+                
+
+
             }
         });
         
     }
     
-    
-    
-        private class Countdown extends Thread{
-
-            @Override
-            public void run(){
-                ArrayList<String> fotos = new ArrayList<>();
-                fotos.add("numero5.jpg");
-                fotos.add("numero4.jpg");
-                fotos.add("numero3.jpg");
-                fotos.add("numero2.jpg");
-                fotos.add("numero1.jpg");
-
-                for(String foto: fotos){
-                    try{            
-                        String filename = "archivos/imagenes/"+foto;
-                        System.out.println(filename);
-                        Image image = new Image(new FileInputStream(filename));
-                        imageView.setImage(image);
-                        try{
-                            Thread.sleep(2000);
-                        }catch(InterruptedException e){
-                            System.out.println(e);
-                        }                      
-                    }catch (FileNotFoundException ex) { 
-                        ex.printStackTrace();
-                    }catch(IllegalArgumentException e){
-                        e.printStackTrace();
-                    }
-
-                }
-            }
-
-    }
 
 }

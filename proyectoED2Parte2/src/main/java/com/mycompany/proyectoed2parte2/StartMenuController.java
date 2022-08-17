@@ -260,6 +260,12 @@ public static  int id = 0;
 
         btnJugar.setOnAction(eh -> {
             System.out.println("Se cambia de pantalla al juego");
+            
+            /*
+            ############################################
+            App.setRoot("ventanaJuego");
+            ############################################
+            */
         });
     }
     

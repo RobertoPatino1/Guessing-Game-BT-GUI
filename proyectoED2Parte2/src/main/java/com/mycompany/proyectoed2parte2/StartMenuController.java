@@ -86,25 +86,22 @@ public static  int id = 0;
         aviso.setHeaderText("Importante: ");
 
         aviso.showAndWait();  
+        
         try{
-        FileChooser fileChooser = new FileChooser(); //Este nos permite abrir el explorador de archivo
-        
-       
-        
 
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT", "*.txt"));
-        
+            FileChooser fileChooser = new FileChooser(); //Este nos permite abrir el explorador de archivos
 
-        fileChooser.setTitle("Cargar Preguntas");
-        File archivoPreguntas = fileChooser.showOpenDialog(null);
-        
-        fileChooser.setTitle("Cargar Respuestas");
-        File archivoRespuestas = fileChooser.showOpenDialog(null);
-        
-        
-        
-        listaArchivos.add(archivoPreguntas);
-        listaArchivos.add(archivoRespuestas);
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT", "*.txt"));
+
+
+            fileChooser.setTitle("Cargar Preguntas");
+            File archivoPreguntas = fileChooser.showOpenDialog(null);
+
+            fileChooser.setTitle("Cargar Respuestas");
+            File archivoRespuestas = fileChooser.showOpenDialog(null);
+
+            listaArchivos.add(archivoPreguntas);
+            listaArchivos.add(archivoRespuestas);
         
 
         

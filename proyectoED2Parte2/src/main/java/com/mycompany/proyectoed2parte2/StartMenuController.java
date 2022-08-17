@@ -237,39 +237,39 @@ public static  int id = 0;
                     System.out.println("No se hace nada con preguntas");
                     System.out.println("No se hace nada con las respuestas de cada respuesta correcta");
                 }
-                
-                
                 System.out.println(preguntas);
                 System.out.println(respuestas);
                 
-                
-                //Creando el objeto Singleton
-                GameSingleton.getInstance(preguntas,respuestas,true);
-
-                contenedor.getChildren().clear();
-          
-                lblTitulo.setText("Piensa en un animal!");
-
-                Button btnJugar = new Button("Iniciar la partida!");
-                Label lblListo = new Label("Listo?");
-                
-                lblListo.setFont(new Font("Arial",20));
-                lblListo.setPadding(new Insets(10, 10, 10, 10));
-                btnJugar.setFont(new Font("Arial", 20));
-                
-                contenedor.getChildren().addAll(lblListo,btnJugar);
-                
-                
-                btnJugar.setOnAction(eh -> {
-                    System.out.println("Se cambia de pantalla al juego");
-                });
-
-                
-
-
+                launchGame(preguntas, respuestas);
             }
         });
         
+    }
+    
+    
+    
+    
+    private void launchGame(List<String> preguntas, List<Respuesta> respuestas){
+        //Creando el objeto Singleton
+        GameSingleton.getInstance(preguntas,respuestas,true);
+
+        contenedor.getChildren().clear();
+
+        lblTitulo.setText("Piensa en un animal!");
+
+        Button btnJugar = new Button("Iniciar la partida!");
+        Label lblListo = new Label("Listo?");
+
+        lblListo.setFont(new Font("Arial",20));
+        lblListo.setPadding(new Insets(10, 10, 10, 10));
+        btnJugar.setFont(new Font("Arial", 20));
+
+        contenedor.getChildren().addAll(lblListo,btnJugar);
+
+
+        btnJugar.setOnAction(eh -> {
+            System.out.println("Se cambia de pantalla al juego");
+        });
     }
     
 

@@ -57,6 +57,11 @@ public static  int id = 0;
     }    
     
     @FXML
+    private void switchPantallaPreguntas(ActionEvent event) throws IOException {
+        App.setRoot("PantallaPreguntas");
+    }
+    
+    @FXML
     private void jugar(ActionEvent event) {
         actualizarListaArchivos();
         if(listaPreguntas.isEmpty()||listaRespuestas.isEmpty()){
@@ -260,12 +265,12 @@ public static  int id = 0;
 
         btnJugar.setOnAction(eh -> {
             System.out.println("Se cambia de pantalla al juego");
+            try {
+                App.setRoot("PantallaPreguntas");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
             
-            /*
-            ############################################
-            App.setRoot("ventanaJuego");
-            ############################################
-            */
         });
     }
     

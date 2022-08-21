@@ -20,42 +20,46 @@
       </Label>
    </top>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="vboxCentro" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="lblPregunta" alignment="CENTER" text="Pregunta">
+            <Label fx:id="lblPregunta" alignment="CENTER" contentDisplay="CENTER" prefHeight="139.0" prefWidth="579.0" text="Texto para la pregunta">
                <font>
                   <Font name="Arial" size="24.0" />
                </font>
                <VBox.margin>
-                  <Insets left="255.0" top="40.0" />
+                  <Insets top="40.0" />
                </VBox.margin>
             </Label>
-            <Button fx:id="btnSi" mnemonicParsing="false" prefHeight="44.0" prefWidth="55.0" text="Si" textAlignment="CENTER">
-               <VBox.margin>
-                  <Insets left="275.0" top="40.0" />
-               </VBox.margin>
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="btnNo" mnemonicParsing="false" prefHeight="44.0" prefWidth="55.0" text="No" textAlignment="CENTER">
-               <VBox.margin>
-                  <Insets left="275.0" top="30.0" />
-               </VBox.margin>
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
+            <HBox alignment="BOTTOM_CENTER" prefHeight="183.0" prefWidth="600.0">
+               <children>
+                  <Button fx:id="btnSi" mnemonicParsing="false" onAction="#jugadorRespondeSi" prefHeight="39.0" prefWidth="62.0" text="Si" textAlignment="CENTER">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="50.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnNo" mnemonicParsing="false" onAction="#jugadorRespondeNo" prefHeight="39.0" prefWidth="62.0" text="No" textAlignment="CENTER">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
          </children>
       </VBox>
    </center>
    <bottom>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnDejarJugar" mnemonicParsing="false" onAction="#cancelar" text="Dejar de jugar">
+            <Button fx:id="btnDejarJugar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cancelar" prefHeight="29.0" prefWidth="137.0" text="Volver al menú">
                <HBox.margin>
-                  <Insets left="257.0" top="35.0" />
+                  <Insets />
                </HBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
             </Button>
          </children>
       </HBox>

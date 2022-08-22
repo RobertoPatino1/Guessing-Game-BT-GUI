@@ -25,6 +25,9 @@ public class GameSingleton {
         }
         return gameInstance;
     }
+    public static GameSingleton getInstance(){
+        return gameInstance;
+    }
 
     public List<String> getPreguntas() {
         return preguntas;

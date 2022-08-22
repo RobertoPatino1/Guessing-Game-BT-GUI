@@ -11,6 +11,7 @@ import java.util.Scanner;
 import java.util.Stack;
 import trees.BinaryTree;
 import util.Constants;
+import util.GameSingleton;
 import util.Lector;
 
 /**
@@ -19,14 +20,20 @@ import util.Lector;
  */
 public class ArbolDecision {
     private BinaryTree arbol;
-    private static final ArrayList<String> listaPreguntas = Lector.cargarListaPreguntas(Constants.rutaPreguntas);
-    private ArrayList<Respuesta> listaRespuestas = Lector.cargarListaRespuestas(Constants.rutaRespuestas);
+    private List<String> listaPreguntas = GameSingleton.getInstance().getPreguntas();
+    private List<Respuesta> listaRespuestas = GameSingleton.getInstance().getRespuestas();
     
     
-    public ArbolDecision(){
+//    public ArbolDecision(){
+//        this.arbol=new BinaryTree();
+//        this.iniciarPreguntas();
+//        this.iniciarRespuestas();
+//    }
+    
+    public ArbolDecision(List<String> preguntas, List<Respuesta> respuestas){
         this.arbol=new BinaryTree();
-        this.iniciarPreguntas();
-        this.iniciarRespuestas();
+        this.iniciarPreguntas(preguntas);
+        this.iniciarRespuestas(respuestas);
     }
 
     public BinaryTree getArbol() {
@@ -39,15 +46,15 @@ public class ArbolDecision {
     
     
     
-    public void iniciarPreguntas(){
-        ArrayList<String> preguntas=Lector.cargarListaPreguntas(Constants.rutaPreguntas);
+    public void iniciarPreguntas(List<String> preguntas){
+//        ArrayList<String> preguntas=Lector.cargarListaPreguntas(Constants.rutaPreguntas);
         for(String pregunta:preguntas){
             this.arbol.setLastLeaves(pregunta);
         }
     }
     
-    public void iniciarRespuestas(){
-        ArrayList<Respuesta> respuestas=Lector.cargarListaRespuestas(Constants.rutaRespuestas);
+    public void iniciarRespuestas(List<Respuesta> respuestas){
+//        ArrayList<Respuesta> respuestas=Lector.cargarListaRespuestas(Constants.rutaRespuestas);
         for(Respuesta r:respuestas){
             this.setAnimal(r);
         }
@@ -159,29 +166,58 @@ public class ArbolDecision {
     
     
     
-    public static ArrayList<String> pedirRespuestas(){
+//    public static ArrayList<String> pedirRespuestas(){
+//        
+//        Scanner sc = new Scanner(System.in);
+//        ArrayList<String> respuestas = new ArrayList<>();
+//        
+//        for(String pregunta:listaPreguntas){
+//            
+//            System.out.println(pregunta);
+//            String respuesta = sc.nextLine();
+//     
+//            while(!respuesta.equalsIgnoreCase("si")&&!respuesta.equalsIgnoreCase("no")){
+//                System.out.println("Debe responder en forma de si o no.");
+//                System.out.println(pregunta);
+//                respuesta = sc.nextLine();
+//            }
+//            
+//            
+//            respuestas.add(respuesta);
+//           
+//        }
+//        
+//        return respuestas;
+//        
+//    }
+    
+    
+    private ArrayList<String> mostrarPosiblesRespuestas(int cantidadPreguntasEscogidas,ArrayList<String> respuestasJugador){
         
-        Scanner sc = new Scanner(System.in);
-        ArrayList<String> respuestas = new ArrayList<>();
+        BinaryTree<String> subArbol=this.recorrerArbolRespuestasN(respuestasJugador);
         
-        for(String pregunta:listaPreguntas){
-            
-            System.out.println(pregunta);
-            String respuesta = sc.nextLine();
-     
-            while(!respuesta.equalsIgnoreCase("si")&&!respuesta.equalsIgnoreCase("no")){
-                System.out.println("Debe responder en forma de si o no.");
-                System.out.println(pregunta);
-                respuesta = sc.nextLine();
-            }
-            
-            
-            respuestas.add(respuesta);
-           
+        int fondo=(listaPreguntas.size()+1)-cantidadPreguntasEscogidas;
+        
+        ArrayList<String> posiblesAnimales=new ArrayList();
+        
+        todasLasRespuestas(subArbol,fondo,posiblesAnimales);
+        
+        return posiblesAnimales;
+    
+    }
+    
+    
+    private static void todasLasRespuestas(BinaryTree<String> subArbol,int nivel,ArrayList<String> lista){
+        if(subArbol==null){
+            return;
         }
-        
-        return respuestas;
-        
+        if(nivel==1&& subArbol.getRootContent()!=null){
+            lista.add(subArbol.getRootContent());
+        }
+        else if(nivel>1){
+            todasLasRespuestas(subArbol.getLeft(),nivel-1,lista);
+            todasLasRespuestas(subArbol.getRight(),nivel-1,lista);
+        }
     }
     
 }

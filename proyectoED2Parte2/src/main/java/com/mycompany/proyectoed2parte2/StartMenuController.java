@@ -245,21 +245,21 @@ public static  int id = 0;
         
     }
     
-//    private ArrayList<String> mostrarPosiblesRespuestas(int n){
+    private ArrayList<String> mostrarPosiblesRespuestas(int cantidadPreguntasEscogidas){
 //        ArbolDecision arbol=new ArbolDecision();
-//                
-//        BinaryTree<String> subArbol=arbol.recorrerArbolRespuestasN(respuestas);
-//        
-//        ArrayList<String> listaPreguntas = Lector.cargarListaPreguntas(Constants.rutaPreguntas);
-//        
-//        int fondo=(listaPreguntas.size()+1)-n;
-//        
-//        ArrayList<String> respuestas=new ArrayList();
-//        
-//        todasLasRespuestas(subArbol,fondo,respies);
-//    
-//    
-//    }
+                
+//        BinaryTree<String> subArbol=arbol.recorrerArbolRespuestasN(respuestasCargadas);
+        
+        ArrayList<String> listaPreguntas = Lector.cargarListaPreguntas(Constants.rutaPreguntas);
+        
+        int fondo=(listaPreguntas.size()+1)-cantidadPreguntasEscogidas;
+        
+        ArrayList<String> posiblesAnimales=new ArrayList();
+        
+//        todasLasRespuestas(subArbol,fondo,posiblesAnimales);
+        return null;
+    
+    }
     
     private static void todasLasRespuestas(BinaryTree<String> subArbol,int nivel,ArrayList<String> lista){
         if(subArbol==null){

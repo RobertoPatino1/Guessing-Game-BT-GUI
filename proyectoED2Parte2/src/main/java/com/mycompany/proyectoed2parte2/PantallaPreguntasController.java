@@ -7,6 +7,7 @@ package com.mycompany.proyectoed2parte2;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,11 +15,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import model.ArbolDecision;
+import util.GameSingleton;
 
-/**
- *
- * @author Alan
- */
 public class PantallaPreguntasController implements Initializable{
     
     @FXML
@@ -31,9 +30,19 @@ public class PantallaPreguntasController implements Initializable{
     private Button btnDejarJugar;
     @FXML
     private VBox vboxCentro;
-
+    
+    private ArbolDecision arbolJuego;
+    
+    private GameSingleton instaciaJuego = GameSingleton.getInstance();
+    
+    private ArrayList<String> respuestasJugador;
+    
+    private int count;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        arbolJuego = new ArbolDecision(instaciaJuego.getPreguntas(),instaciaJuego.getRespuestas());    
+        respuestasJugador = new ArrayList<>();
+        count = 1;
         
     }
       
@@ -44,12 +53,22 @@ public class PantallaPreguntasController implements Initializable{
 
     @FXML
     private void jugadorRespondeSi(ActionEvent event) {
-        System.out.println("La respuesta es si (Se viaja a la izquierda del arbol)");
+        respuestasJugador.add("si");
+        count++;
+        
+        if(count==instaciaJuego.getRespuestas().size()){
+            System.out.println("SE ACABA EL JUEGO");
+        }
+        
     }
 
     @FXML
     private void jugadorRespondeNo(ActionEvent event) {
-        System.out.println("La respuesta es no (Se viaja a la derecha del arbol)");
+        respuestasJugador.add("no");
+        count++;
+        if(count==instaciaJuego.getRespuestas().size()){
+            System.out.println("SE ACABA EL JUEGO");
+        }
     }
     
     

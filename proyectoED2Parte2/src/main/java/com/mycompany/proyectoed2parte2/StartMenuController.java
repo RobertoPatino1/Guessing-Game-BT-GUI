@@ -29,8 +29,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
+import model.ArbolDecision;
 import model.Respuesta;
+import trees.BinaryTree;
 import util.Avisos;
+import util.Constants;
 import util.GameSingleton;
 import util.Lector;
 
@@ -240,6 +243,35 @@ public static  int id = 0;
             }
         });
         
+    }
+    
+//    private ArrayList<String> mostrarPosiblesRespuestas(int n){
+//        ArbolDecision arbol=new ArbolDecision();
+//                
+//        BinaryTree<String> subArbol=arbol.recorrerArbolRespuestasN(respuestas);
+//        
+//        ArrayList<String> listaPreguntas = Lector.cargarListaPreguntas(Constants.rutaPreguntas);
+//        
+//        int fondo=(listaPreguntas.size()+1)-n;
+//        
+//        ArrayList<String> respuestas=new ArrayList();
+//        
+//        todasLasRespuestas(subArbol,fondo,respies);
+//    
+//    
+//    }
+    
+    private static void todasLasRespuestas(BinaryTree<String> subArbol,int nivel,ArrayList<String> lista){
+        if(subArbol==null){
+            return;
+        }
+        if(nivel==1&& subArbol.getRootContent()!=null){
+            lista.add(subArbol.getRootContent());
+        }
+        else if(nivel>1){
+            todasLasRespuestas(subArbol.getLeft(),nivel-1,lista);
+            todasLasRespuestas(subArbol.getRight(),nivel-1,lista);
+        }
     }
     
     

@@ -126,6 +126,38 @@ public class ArbolDecision {
         return retorno;
     }
     
+        public BinaryTree<String> recorrerArbolRespuestasN(ArrayList<String> listaRespuestas){ 
+
+        BinaryTree<String> retorno = new BinaryTree();
+        Stack<BinaryTree<String>> s = new Stack<>();
+        s.push(arbol);
+        int index=0;
+        while(!s.isEmpty()){
+            BinaryTree<String> tmp=s.pop();
+            
+            if(index==listaRespuestas.size()){
+                retorno =  tmp;
+
+            }
+            else if(listaRespuestas.get(index).equalsIgnoreCase("si")){
+                if(tmp.getLeft()!=null){
+                    s.push(tmp.getLeft());
+                    index++;                   
+
+                }
+            }
+            else if(listaRespuestas.get(index).equalsIgnoreCase("no")){
+                if(tmp.getRight()!=null){
+                    s.push(tmp.getRight());
+                    index++;              
+
+                }   
+            }
+        }
+        return retorno;
+    }
+    
+    
     
     public static ArrayList<String> pedirRespuestas(){
         

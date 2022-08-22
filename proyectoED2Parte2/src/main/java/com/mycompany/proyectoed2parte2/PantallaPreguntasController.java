@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 
 /**
  *
@@ -28,6 +29,8 @@ public class PantallaPreguntasController implements Initializable{
     private Button btnNo;
     @FXML
     private Button btnDejarJugar;
+    @FXML
+    private VBox vboxCentro;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -37,6 +40,36 @@ public class PantallaPreguntasController implements Initializable{
     @FXML
     private void cancelar(ActionEvent event) throws IOException {
         App.setRoot("startMenu");
+    }
+
+    @FXML
+    private void jugadorRespondeSi(ActionEvent event) {
+        System.out.println("La respuesta es si (Se viaja a la izquierda del arbol)");
+    }
+
+    @FXML
+    private void jugadorRespondeNo(ActionEvent event) {
+        System.out.println("La respuesta es no (Se viaja a la derecha del arbol)");
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    private void mostrarResultados(){
+        /*
+        ###########################################################################
+        METODO QUE LIMPIA LOS CONTENEDORES Y MUESTRA EN PANTALLA
+        LAS POSIBLES RESPUESTAS (SE EJECUTA SI NO SE DIO CON LA RESPUESTA CORRECTA)
+        ############################################################################
+        */
     }
     
     

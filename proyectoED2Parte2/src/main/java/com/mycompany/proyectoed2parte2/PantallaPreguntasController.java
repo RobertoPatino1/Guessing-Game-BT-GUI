@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import model.ArbolDecision;
 import util.GameSingleton;
+import util.Lector;
 
 public class PantallaPreguntasController implements Initializable{
     
@@ -40,9 +41,11 @@ public class PantallaPreguntasController implements Initializable{
     private int count;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        arbolJuego = new ArbolDecision(instaciaJuego.getPreguntas(),instaciaJuego.getRespuestas());    
+        arbolJuego = new ArbolDecision(Lector.cargarListaPreguntas("archivos/preguntas/0_PREGUNTAS.txt"),Lector.cargarListaRespuestas("archivos/respuestas/0_RESPUESTAS.txt"));    
         respuestasJugador = new ArrayList<>();
-        count = 1;
+        count = 0;
+        
+        System.out.println(arbolJuego.getArbol().inOrderRecursiveTraversal());
         
     }
       
@@ -55,10 +58,13 @@ public class PantallaPreguntasController implements Initializable{
     private void jugadorRespondeSi(ActionEvent event) {
         respuestasJugador.add("si");
         count++;
-        
-        if(count==instaciaJuego.getRespuestas().size()){
-            System.out.println("SE ACABA EL JUEGO");
+        Integer c = count;
+        Integer tmp = instaciaJuego.getPreguntas().size();
+        if(c.equals(tmp)){
+            System.out.println("FIN DEL JUEGO JUEGO");            
+            System.out.println(arbolJuego.mostrarPosiblesRespuestas(count, respuestasJugador));
         }
+        
         
     }
 
@@ -66,8 +72,11 @@ public class PantallaPreguntasController implements Initializable{
     private void jugadorRespondeNo(ActionEvent event) {
         respuestasJugador.add("no");
         count++;
-        if(count==instaciaJuego.getRespuestas().size()){
-            System.out.println("SE ACABA EL JUEGO");
+        Integer c = count;
+        Integer tmp = instaciaJuego.getPreguntas().size();
+        if(c.equals(tmp)){
+            System.out.println("FIND DEL JUEGO");
+            System.out.println(arbolJuego.mostrarPosiblesRespuestas(count, respuestasJugador));
         }
     }
     

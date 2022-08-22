@@ -245,38 +245,7 @@ public static  int id = 0;
         
     }
     
-    private ArrayList<String> mostrarPosiblesRespuestas(int cantidadPreguntasEscogidas){
-//        ArbolDecision arbol=new ArbolDecision();
-                
-//        BinaryTree<String> subArbol=arbol.recorrerArbolRespuestasN(respuestasCargadas);
-        
-        ArrayList<String> listaPreguntas = Lector.cargarListaPreguntas(Constants.rutaPreguntas);
-        
-        int fondo=(listaPreguntas.size()+1)-cantidadPreguntasEscogidas;
-        
-        ArrayList<String> posiblesAnimales=new ArrayList();
-        
-//        todasLasRespuestas(subArbol,fondo,posiblesAnimales);
-        return null;
-    
-    }
-    
-    private static void todasLasRespuestas(BinaryTree<String> subArbol,int nivel,ArrayList<String> lista){
-        if(subArbol==null){
-            return;
-        }
-        if(nivel==1&& subArbol.getRootContent()!=null){
-            lista.add(subArbol.getRootContent());
-        }
-        else if(nivel>1){
-            todasLasRespuestas(subArbol.getLeft(),nivel-1,lista);
-            todasLasRespuestas(subArbol.getRight(),nivel-1,lista);
-        }
-    }
-    
-    
-    
-    
+
     private void launchGame(List<String> preguntas, List<Respuesta> respuestas){
         //Creando el objeto Singleton
         GameSingleton.getInstance(preguntas,respuestas,true);

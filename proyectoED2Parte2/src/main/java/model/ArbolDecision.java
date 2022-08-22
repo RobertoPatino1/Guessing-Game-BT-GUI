@@ -20,8 +20,8 @@ import util.Lector;
  */
 public class ArbolDecision {
     private BinaryTree arbol;
-    private List<String> listaPreguntas = GameSingleton.getInstance().getPreguntas();
-    private List<Respuesta> listaRespuestas = GameSingleton.getInstance().getRespuestas();
+    private List<String> listaPreguntas = Lector.cargarListaPreguntas("archivos/preguntas/0_PREGUNTAS.txt");
+    private List<Respuesta> listaRespuestas = Lector.cargarListaRespuestas("archivos/respuestas/0_RESPUESTAS.txt");
     
     
 //    public ArbolDecision(){
@@ -165,34 +165,7 @@ public class ArbolDecision {
     }
     
     
-    
-//    public static ArrayList<String> pedirRespuestas(){
-//        
-//        Scanner sc = new Scanner(System.in);
-//        ArrayList<String> respuestas = new ArrayList<>();
-//        
-//        for(String pregunta:listaPreguntas){
-//            
-//            System.out.println(pregunta);
-//            String respuesta = sc.nextLine();
-//     
-//            while(!respuesta.equalsIgnoreCase("si")&&!respuesta.equalsIgnoreCase("no")){
-//                System.out.println("Debe responder en forma de si o no.");
-//                System.out.println(pregunta);
-//                respuesta = sc.nextLine();
-//            }
-//            
-//            
-//            respuestas.add(respuesta);
-//           
-//        }
-//        
-//        return respuestas;
-//        
-//    }
-    
-    
-    private ArrayList<String> mostrarPosiblesRespuestas(int cantidadPreguntasEscogidas,ArrayList<String> respuestasJugador){
+    public ArrayList<String> mostrarPosiblesRespuestas(int cantidadPreguntasEscogidas,ArrayList<String> respuestasJugador){
         
         BinaryTree<String> subArbol=this.recorrerArbolRespuestasN(respuestasJugador);
         

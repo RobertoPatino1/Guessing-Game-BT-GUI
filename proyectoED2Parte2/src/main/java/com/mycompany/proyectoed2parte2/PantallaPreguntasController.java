@@ -8,6 +8,9 @@ package com.mycompany.proyectoed2parte2;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -46,6 +49,7 @@ public class PantallaPreguntasController implements Initializable{
         count = 0;
         
         System.out.println(arbolJuego.getArbol().inOrderRecursiveTraversal());
+        mostrarPregunta(count);
         
     }
       
@@ -60,10 +64,14 @@ public class PantallaPreguntasController implements Initializable{
         count++;
         Integer c = count;
         Integer tmp = instaciaJuego.getPreguntas().size();
+        if(c<tmp){
+            mostrarPregunta(c);
+        }
         if(c.equals(tmp)){
             System.out.println("FIN DEL JUEGO JUEGO");            
             System.out.println(arbolJuego.mostrarPosiblesRespuestas(count, respuestasJugador));
         }
+        
         
         
     }
@@ -74,22 +82,28 @@ public class PantallaPreguntasController implements Initializable{
         count++;
         Integer c = count;
         Integer tmp = instaciaJuego.getPreguntas().size();
+        if(c<tmp){
+            mostrarPregunta(c);
+        }
         if(c.equals(tmp)){
             System.out.println("FIND DEL JUEGO");
             System.out.println(arbolJuego.mostrarPosiblesRespuestas(count, respuestasJugador));
         }
     }
     
+    @FXML
+    private void mostrarPregunta(int idx){
+        List<String> preguntas=instaciaJuego.getPreguntas();
+        
+        if(idx>preguntas.size()){
+            System.out.println("Error en indice");
+        }else{
+            String pregunta= preguntas.get(idx);
+            lblPregunta.setText(pregunta);
+        }
+    }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
+   
     
     private void mostrarResultados(){
         /*

@@ -41,6 +41,10 @@ public class PantallaPreguntasController implements Initializable{
     private int count;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        /*
+        FIXMEEE: REEMPLAZAR LOS PARAMETROS DEL ARBOL DE DECISION
+        */
         arbolJuego = new ArbolDecision(Lector.cargarListaPreguntas("archivos/preguntas/0_PREGUNTAS.txt"),Lector.cargarListaRespuestas("archivos/respuestas/0_RESPUESTAS.txt"));    
         respuestasJugador = new ArrayList<>();
         count = 0;
@@ -63,6 +67,13 @@ public class PantallaPreguntasController implements Initializable{
         if(c.equals(tmp)){
             System.out.println("FIN DEL JUEGO JUEGO");            
             System.out.println(arbolJuego.mostrarPosiblesRespuestas(count, respuestasJugador));
+            /*
+            ##########################################
+            VALIDAR EN FUNCION DEL TAMANIO DE LA LISTA DE POSIBLES RESPUESTAS:
+            SI ES UNO PUEDE QUE SEA UNA RESPUESTA CERTERA, SI ES MAYOR A 1 SE PRESENTAN LAS
+            RESPUESTAS POSIBLES
+            ##########################################
+            */
         }
         
         
@@ -77,18 +88,18 @@ public class PantallaPreguntasController implements Initializable{
         if(c.equals(tmp)){
             System.out.println("FIND DEL JUEGO");
             System.out.println(arbolJuego.mostrarPosiblesRespuestas(count, respuestasJugador));
+            
+            /*
+            ##########################################
+            VALIDAR EN FUNCION DEL TAMANIO DE LA LISTA DE POSIBLES RESPUESTAS:
+            SI ES UNO PUEDE QUE SEA UNA RESPUESTA CERTERA, SI ES MAYOR A 1 SE PRESENTAN LAS
+            RESPUESTAS POSIBLES
+            ##########################################
+            */
         }
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
     
     private void mostrarResultados(){

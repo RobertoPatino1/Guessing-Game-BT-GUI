@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import model.ArbolDecision;
 import util.GameSingleton;
 import util.Lector;
@@ -72,7 +73,9 @@ public class PantallaPreguntasController implements Initializable{
             mostrarPregunta(c);
         }
         if(c.equals(tmp)){
-            System.out.println("FIN DEL JUEGO JUEGO");            
+            
+            System.out.println("FIN DEL JUEGO JUEGO");     
+            System.out.println("SE ACABAAAAAAAAAAAAAAAAAAAAAAA");
             System.out.println(arbolJuego.mostrarPosiblesRespuestas(count, respuestasJugador));
             /*
             ##########################################
@@ -81,6 +84,7 @@ public class PantallaPreguntasController implements Initializable{
             RESPUESTAS POSIBLES
             ##########################################
             */
+            mostrarResultados();
         }
         
         
@@ -91,15 +95,15 @@ public class PantallaPreguntasController implements Initializable{
     private void jugadorRespondeNo(ActionEvent event) {
         respuestasJugador.add("no");
         count++;
-        Integer c = count;
+        Integer c2 = count;
         Integer tmp = instaciaJuego.getPreguntas().size();
-        if(c<tmp){
-            mostrarPregunta(c);
+        if(c2<tmp){
+            mostrarPregunta(c2);
         }
-        if(c.equals(tmp)){
-            System.out.println("FIND DEL JUEGO");
+        if(c2.equals(tmp)){
+            System.out.println("FIN DEL JUEGO");
             System.out.println(arbolJuego.mostrarPosiblesRespuestas(count, respuestasJugador));
-            
+            mostrarResultados();
             /*
             ##########################################
             VALIDAR EN FUNCION DEL TAMANIO DE LA LISTA DE POSIBLES RESPUESTAS:
@@ -133,6 +137,32 @@ public class PantallaPreguntasController implements Initializable{
         LAS POSIBLES RESPUESTAS (SE EJECUTA SI NO SE DIO CON LA RESPUESTA CORRECTA)
         ############################################################################
         */
+        
+        //Hacer catch de un nullpointer exception???
+        
+        Label lblRespuestaFinal = new Label();
+        lblRespuestaFinal.setFont(new Font("Arial", 24));
+        
+        ArrayList<String> posiblesRespuestas = arbolJuego.mostrarPosiblesRespuestas(count, respuestasJugador);
+        System.out.println("SIZE DE LAS RESPUESTAS");
+        System.out.println(posiblesRespuestas.size());
+        if(posiblesRespuestas.size()==1){
+            //Se encontro la respuesta de esa pregunta
+            
+            lblPregunta.setText("El animal en el que pensabas es: ");
+            lblRespuestaFinal.setText(posiblesRespuestas.get(0));
+            
+            
+            vboxCentro.getChildren().clear();
+            vboxCentro.getChildren().addAll(lblPregunta,lblRespuestaFinal);
+            
+        }else if(posiblesRespuestas.size()>1){
+            //Se encontraron varias posibles respuestas
+            System.out.println("Se encontraron varias posibles respuestas");
+        }else{
+            //No se encontraron respuestas
+            
+        }
     }
     
     

@@ -71,37 +71,6 @@ public class Lector {
     
     
     
-//    public static Thread createCountdown(VBox contenedor){
-//        contenedor.getChildren().clear();
-//        ArrayList<String> fotos = new ArrayList<>();
-//        fotos.add("numero5.jpg");
-//        fotos.add("numero4.jpg");
-//        fotos.add("numero3.jpg");
-//        fotos.add("numero2.jpg");
-//        fotos.add("numero1.jpg");
-//        ImageView imageView = new ImageView();
-//        Thread t = new Thread(() ->{
-//            for(String foto: fotos){
-//                try{            
-//                    String filename = "archivos/imagenes/"+foto;
-//                    Image image = new Image(new FileInputStream(filename));
-//                    imageView.setImage(image);
-//                    try{
-//                        Thread.sleep(4000);
-//                    }catch(InterruptedException e){
-//                        System.out.println(e);
-//                    }                      
-//                }catch (FileNotFoundException ex) { 
-//                    ex.printStackTrace();
-//                }catch(IllegalArgumentException e){
-//                    e.printStackTrace();
-//                }
-//                
-//                contenedor.getChildren().add(imageView);
-//            }
-//        });
-//        return t;
-//
-//    }
+
     
 }

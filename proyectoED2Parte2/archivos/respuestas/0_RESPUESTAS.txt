@@ -3,3 +3,4 @@ Lechuza no si no
 Venado si no si
 Paloma no no no
 Cocodrilo no si si
+Estegosaurio no no si

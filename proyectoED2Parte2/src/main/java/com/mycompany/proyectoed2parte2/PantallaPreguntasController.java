@@ -146,9 +146,7 @@ public class PantallaPreguntasController implements Initializable{
         
         Label lblRespuestaFinal = new Label();
         lblRespuestaFinal.setFont(new Font("Arial", 24));
-        ImageView contenedor = new ImageView();
-        
-        setImagen(contenedor, "archivos/imagenes/computadoraRespuestaCorrecta.jpg");
+
         ArrayList<String> posiblesRespuestas = arbolJuego.mostrarPosiblesRespuestas(count, respuestasJugador);
         btnDejarJugar.setVisible(true);
         

@@ -20,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import model.ArbolDecision;
+import util.Constants;
 import util.GameSingleton;
 import util.Lector;
 
@@ -45,16 +46,14 @@ public class PantallaPreguntasController implements Initializable{
     private int count;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        /*
-        FIXMEEE: REEMPLAZAR LOS PARAMETROS DEL ARBOL DE DECISION
-        */
-        arbolJuego = new ArbolDecision(Lector.cargarListaPreguntas("archivos/preguntas/0_PREGUNTAS.txt"),Lector.cargarListaRespuestas("archivos/respuestas/0_RESPUESTAS.txt"));    
+
+        arbolJuego = new ArbolDecision(Lector.cargarListaPreguntas(Constants.rutaPreguntas),Lector.cargarListaRespuestas(Constants.rutaRespuestas));  
         respuestasJugador = new ArrayList<>();
         count = 0;
+
         
-        System.out.println(arbolJuego.getArbol().inOrderRecursiveTraversal());
         mostrarPregunta(count);
+        btnDejarJugar.setVisible(false);
         
     }
       
@@ -136,12 +135,11 @@ public class PantallaPreguntasController implements Initializable{
         ############################################################################
         */
         
-
-        
         Label lblRespuestaFinal = new Label();
         lblRespuestaFinal.setFont(new Font("Arial", 24));
         
         ArrayList<String> posiblesRespuestas = arbolJuego.mostrarPosiblesRespuestas(count, respuestasJugador);
+        btnDejarJugar.setVisible(true);
         
         if(posiblesRespuestas==null){
             //No se encontraron respuestas

@@ -2,6 +2,6 @@
 package util;
 
 public class Constants {
-    public static final String rutaPreguntas = "archivos/preguntas.txt";
-    public static final String rutaRespuestas = "archivos/respuestas.txt";
+    public static String rutaPreguntas;
+    public static String rutaRespuestas;
 }

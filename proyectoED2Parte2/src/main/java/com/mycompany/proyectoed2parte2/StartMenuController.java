@@ -240,6 +240,9 @@ public static  int id = 0;
                 System.out.println(respuestas);
                 
                 launchGame(preguntas, respuestas);
+                
+                Constants.rutaPreguntas = "archivos/preguntas/"+nombreArchivoPreguntas;
+                Constants.rutaRespuestas = "archivos/respuestas/"+nombreArchivoRespuestas;
             }
         });
         

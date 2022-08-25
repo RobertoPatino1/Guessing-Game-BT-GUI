@@ -74,13 +74,6 @@ public class PantallaPreguntasController implements Initializable{
         if(c.equals(tmp)){
 
             System.out.println(arbolJuego.mostrarPosiblesRespuestas(count, respuestasJugador));
-            /*
-            ##########################################
-            VALIDAR EN FUNCION DEL TAMANIO DE LA LISTA DE POSIBLES RESPUESTAS:
-            SI ES UNO PUEDE QUE SEA UNA RESPUESTA CERTERA, SI ES MAYOR A 1 SE PRESENTAN LAS
-            RESPUESTAS POSIBLES
-            ##########################################
-            */
             mostrarResultados();
         }
         
@@ -131,7 +124,7 @@ public class PantallaPreguntasController implements Initializable{
         /*
         ###########################################################################
         METODO QUE LIMPIA LOS CONTENEDORES Y MUESTRA EN PANTALLA
-        LAS POSIBLES RESPUESTAS (SE EJECUTA SI NO SE DIO CON LA RESPUESTA CORRECTA)
+        LAS POSIBLES RESPUESTAS 
         ############################################################################
         */
         

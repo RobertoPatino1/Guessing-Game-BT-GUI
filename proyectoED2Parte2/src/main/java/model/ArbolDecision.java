@@ -151,6 +151,8 @@ public class ArbolDecision {
                     s.push(tmp.getLeft());
                     index++;                   
 
+                }else{
+                    return null;
                 }
             }
             else if(listaRespuestas.get(index).equalsIgnoreCase("no")){
@@ -158,7 +160,9 @@ public class ArbolDecision {
                     s.push(tmp.getRight());
                     index++;              
 
-                }   
+                }else{
+                    return null;
+                }
             }
         }
         return retorno;
@@ -168,6 +172,10 @@ public class ArbolDecision {
     public ArrayList<String> mostrarPosiblesRespuestas(int cantidadPreguntasEscogidas,ArrayList<String> respuestasJugador){
         
         BinaryTree<String> subArbol=this.recorrerArbolRespuestasN(respuestasJugador);
+        
+        if(subArbol==null){
+            return null;
+        }
         
         int fondo=(listaPreguntas.size()+1)-cantidadPreguntasEscogidas;
         

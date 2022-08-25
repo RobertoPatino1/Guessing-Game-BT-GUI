@@ -73,9 +73,7 @@ public class PantallaPreguntasController implements Initializable{
             mostrarPregunta(c);
         }
         if(c.equals(tmp)){
-            
-            System.out.println("FIN DEL JUEGO JUEGO");     
-            System.out.println("SE ACABAAAAAAAAAAAAAAAAAAAAAAA");
+
             System.out.println(arbolJuego.mostrarPosiblesRespuestas(count, respuestasJugador));
             /*
             ##########################################
@@ -138,14 +136,23 @@ public class PantallaPreguntasController implements Initializable{
         ############################################################################
         */
         
-        //Hacer catch de un nullpointer exception???
+
         
         Label lblRespuestaFinal = new Label();
         lblRespuestaFinal.setFont(new Font("Arial", 24));
         
         ArrayList<String> posiblesRespuestas = arbolJuego.mostrarPosiblesRespuestas(count, respuestasJugador);
+        
+        if(posiblesRespuestas==null){
+            //No se encontraron respuestas
+            lblPregunta.setText("Lo siento, no pude adivinar el animal\nen el que pensabas :( ");
+            
+            vboxCentro.getChildren().clear();
+            vboxCentro.getChildren().addAll(lblPregunta);
 
-        if(posiblesRespuestas.size()==1){
+        }
+        
+        else if(posiblesRespuestas.size()==1){
             //Se encontro la respuesta unica de esa pregunta
             lblPregunta.setText("El animal en el que pensabas es: ");
             lblRespuestaFinal.setText(posiblesRespuestas.get(0));
@@ -155,14 +162,6 @@ public class PantallaPreguntasController implements Initializable{
         }else if(posiblesRespuestas.size()>1){
             //Se encontraron varias posibles respuestas
             lblPregunta.setText("No estoy muy seguro del animal en el que pensabas.\nPero sé que debe ser alguno de estos: ");
-            
-            lblRespuestaFinal.setText(posiblesRespuestas.toString());
-            
-            vboxCentro.getChildren().clear();
-            vboxCentro.getChildren().addAll(lblPregunta,lblRespuestaFinal);
-        }else{
-            //No se encontraron respuestas
-            lblPregunta.setText("Lo siento, no pude adivinar el animal en el que pensabas :( ");
             
             lblRespuestaFinal.setText(posiblesRespuestas.toString());
             

@@ -1,0 +1,6 @@
+Oso si si si
+Lechuza no si no
+Venado si no si
+Paloma no no no
+Cocodrilo no si si
+Diplodocus no no si

@@ -123,7 +123,7 @@ public static  int id = 0;
             actualizarListaArchivos();
             
         }
-        //Hacer algun catch???
+
         
 
     
@@ -165,7 +165,16 @@ public static  int id = 0;
     private void escogerNombresArchivos(){
        Button iniciarPartida = new Button("Jugar!");
        iniciarPartida.setFont(new Font("Arial",15));
-
+       Button btnRegresar = new Button("Volver al menú principal");
+       btnRegresar.setFont(new Font("Arial",15));
+       
+       btnRegresar.setOnAction(ehh -> {
+           try {
+               App.setRoot("startMenu");
+           } catch (IOException ex) {
+               ex.printStackTrace();
+           }
+       });
 
        Label lblPreguntas = new Label("Selecciona el archivo de preguntas!");
        Label lblRespuestas = new Label("Selecciona el archivo de respuestas!");
@@ -199,9 +208,9 @@ public static  int id = 0;
         VBox.setMargin(comboPreguntas, new Insets(10, 0, 20, 0));
         VBox.setMargin(comboRespuestas, new Insets(10, 0, 20, 0));
         VBox.setMargin(txtCantidadPreguntas, new Insets(10, 0, 20, 0));
-
-
-        contenedor.getChildren().setAll(lblPreguntas,comboPreguntas,lblRespuestas,comboRespuestas,lblCantidadPreguntas,txtCantidadPreguntas,iniciarPartida);
+        VBox.setMargin(iniciarPartida, new Insets(10, 0, 20, 0));
+        
+        contenedor.getChildren().setAll(lblPreguntas,comboPreguntas,lblRespuestas,comboRespuestas,lblCantidadPreguntas,txtCantidadPreguntas,iniciarPartida,btnRegresar);
 
         borderPane.setCenter(contenedor);
 

@@ -144,24 +144,30 @@ public class PantallaPreguntasController implements Initializable{
         lblRespuestaFinal.setFont(new Font("Arial", 24));
         
         ArrayList<String> posiblesRespuestas = arbolJuego.mostrarPosiblesRespuestas(count, respuestasJugador);
-        System.out.println("SIZE DE LAS RESPUESTAS");
-        System.out.println(posiblesRespuestas.size());
+
         if(posiblesRespuestas.size()==1){
-            //Se encontro la respuesta de esa pregunta
-            
+            //Se encontro la respuesta unica de esa pregunta
             lblPregunta.setText("El animal en el que pensabas es: ");
             lblRespuestaFinal.setText(posiblesRespuestas.get(0));
-            
-            
             vboxCentro.getChildren().clear();
             vboxCentro.getChildren().addAll(lblPregunta,lblRespuestaFinal);
             
         }else if(posiblesRespuestas.size()>1){
             //Se encontraron varias posibles respuestas
-            System.out.println("Se encontraron varias posibles respuestas");
+            lblPregunta.setText("No estoy muy seguro del animal en el que pensabas.\nPero sé que debe ser alguno de estos: ");
+            
+            lblRespuestaFinal.setText(posiblesRespuestas.toString());
+            
+            vboxCentro.getChildren().clear();
+            vboxCentro.getChildren().addAll(lblPregunta,lblRespuestaFinal);
         }else{
             //No se encontraron respuestas
+            lblPregunta.setText("Lo siento, no pude adivinar el animal en el que pensabas :( ");
             
+            lblRespuestaFinal.setText(posiblesRespuestas.toString());
+            
+            vboxCentro.getChildren().clear();
+            vboxCentro.getChildren().addAll(lblPregunta,lblRespuestaFinal);
         }
     }
     

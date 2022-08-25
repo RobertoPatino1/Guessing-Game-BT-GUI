@@ -20,8 +20,8 @@ import util.Lector;
  */
 public class ArbolDecision {
     private BinaryTree arbol;
-    private List<String> listaPreguntas = Lector.cargarListaPreguntas("archivos/preguntas/0_PREGUNTAS.txt");
-    private List<Respuesta> listaRespuestas = Lector.cargarListaRespuestas("archivos/respuestas/0_RESPUESTAS.txt");
+    private List<String> listaPreguntas = Lector.cargarListaPreguntas(Constants.rutaPreguntas);
+    private List<Respuesta> listaRespuestas = Lector.cargarListaRespuestas(Constants.rutaRespuestas);
     
     
 //    public ArbolDecision(){
@@ -68,9 +68,10 @@ public class ArbolDecision {
             Stack<BinaryTree<String>> s = new Stack<>();
             s.push(arbol);
             int index=0;
+            
             while(!s.isEmpty()){
                 BinaryTree<String> tmp=s.pop();
-                if(tmp.isLeaf()){
+                if(tmp.isLeaf() || tmp.getLeft()==null || tmp.getRight()==null){
                     if(lista.get(index).equalsIgnoreCase("si")){
                         BinaryTree<String> tmpLeft=new BinaryTree(respuesta.getAnimal());
                         tmp.setLeft(tmpLeft);
@@ -91,8 +92,6 @@ public class ArbolDecision {
 
             }    
         }
-        
-        
 
     }
     

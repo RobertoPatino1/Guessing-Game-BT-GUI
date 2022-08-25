@@ -46,14 +46,13 @@ public class PantallaPreguntasController implements Initializable{
     private int count;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         arbolJuego = new ArbolDecision(Lector.cargarListaPreguntas(Constants.rutaPreguntas),Lector.cargarListaRespuestas(Constants.rutaRespuestas));  
         respuestasJugador = new ArrayList<>();
         count = 0;
-
-        
         mostrarPregunta(count);
         btnDejarJugar.setVisible(false);
+        System.out.println("ARBOL");
+        System.out.println(arbolJuego.getArbol().inOrderRecursiveTraversal());
         
     }
       

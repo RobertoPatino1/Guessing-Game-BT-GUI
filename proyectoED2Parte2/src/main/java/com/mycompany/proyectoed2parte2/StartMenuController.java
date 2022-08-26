@@ -165,6 +165,8 @@ public static  int id = 0;
     private void escogerNombresArchivos(){
        Button iniciarPartida = new Button("Jugar!");
        iniciarPartida.setFont(new Font("Arial",15));
+       Button juegoInverso = new Button("Jugar el modo inverso!");
+       juegoInverso.setFont(new Font("Arial",15));
        Button btnRegresar = new Button("Volver al menú principal");
        btnRegresar.setFont(new Font("Arial",15));
        
@@ -209,8 +211,9 @@ public static  int id = 0;
         VBox.setMargin(comboRespuestas, new Insets(10, 0, 20, 0));
         VBox.setMargin(txtCantidadPreguntas, new Insets(10, 0, 20, 0));
         VBox.setMargin(iniciarPartida, new Insets(10, 0, 20, 0));
+        VBox.setMargin(juegoInverso, new Insets(10, 0, 20, 0));
         
-        contenedor.getChildren().setAll(lblPreguntas,comboPreguntas,lblRespuestas,comboRespuestas,lblCantidadPreguntas,txtCantidadPreguntas,iniciarPartida,btnRegresar);
+        contenedor.getChildren().setAll(lblPreguntas,comboPreguntas,lblRespuestas,comboRespuestas,lblCantidadPreguntas,txtCantidadPreguntas,iniciarPartida,juegoInverso,btnRegresar);
 
         borderPane.setCenter(contenedor);
 
@@ -254,6 +257,45 @@ public static  int id = 0;
                 Constants.rutaRespuestas = "archivos/respuestas/"+nombreArchivoRespuestas;
             }
         });
+        juegoInverso.setOnAction(e -> {
+            String nombreArchivoPreguntas = comboPreguntas.getValue();
+            String nombreArchivoRespuestas = comboRespuestas.getValue();
+            
+            List<String> preguntas = Lector.cargarListaPreguntas("archivos/preguntas/"+nombreArchivoPreguntas);
+            List<Respuesta> respuestas = Lector.cargarListaRespuestas("archivos/respuestas/"+nombreArchivoRespuestas);
+            
+            if(nombreArchivoPreguntas==null || nombreArchivoRespuestas == null || txtCantidadPreguntas.getText().equals("")){
+                Avisos.avisoCamposIncompletos();
+            }else{  
+                try{
+                    
+                    int totalPreguntas = Integer.valueOf(txtCantidadPreguntas.getText());
+                    
+                    //Seccionando la lista de preguntas en funcion del total de preguntas que debe hacer la computadora
+                    preguntas = preguntas.subList(0, totalPreguntas);
+                    
+                    //Solo debemos seccionar la lista de respuestas de si/no en la lista de respuestas que tenemos
+                    for(Respuesta r: respuestas){
+                        r.setRespuestas(r.getRespuestas().subList(0, totalPreguntas));
+                    }
+                    
+                    
+                }catch(NumberFormatException ex){
+                    Avisos.avisoCamposErroneos();
+                }catch(IndexOutOfBoundsException ex){
+                    //En este caso no hay suficientes elementos en la lista, solo se escoje la lista tal y como es
+                    System.out.println("No se hace nada con preguntas");
+                    System.out.println("No se hace nada con las respuestas de cada respuesta correcta");
+                }
+                System.out.println(preguntas);
+                System.out.println(respuestas);
+                
+                launchInvertedGame(preguntas, respuestas);
+                
+                Constants.rutaPreguntas = "archivos/preguntas/"+nombreArchivoPreguntas;
+                Constants.rutaRespuestas = "archivos/respuestas/"+nombreArchivoRespuestas;
+            }
+        });
         
     }
     
@@ -280,6 +322,34 @@ public static  int id = 0;
             System.out.println("Se cambia de pantalla al juego");
             try {
                 App.setRoot("PantallaPreguntas");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            
+        });
+    }
+    private void launchInvertedGame(List<String> preguntas, List<Respuesta> respuestas){
+        //Creando el objeto Singleton
+        GameSingleton.getInstance(preguntas,respuestas,true);
+
+        contenedor.getChildren().clear();
+
+        lblTitulo.setText("Trata de llegar al animal que te mostraré!");
+
+        Button btnJugar = new Button("Iniciar la partida!");
+        Label lblListo = new Label("Listo?");
+
+        lblListo.setFont(new Font("Arial",20));
+        lblListo.setPadding(new Insets(10, 10, 10, 10));
+        btnJugar.setFont(new Font("Arial", 20));
+
+        contenedor.getChildren().addAll(lblListo,btnJugar);
+
+
+        btnJugar.setOnAction(eh -> {
+            System.out.println("Se cambia de pantalla al juego");
+            try {
+                App.setRoot("PantallaJuegoInverso");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

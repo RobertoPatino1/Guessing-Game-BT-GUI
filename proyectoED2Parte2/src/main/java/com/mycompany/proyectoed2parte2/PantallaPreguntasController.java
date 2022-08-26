@@ -64,8 +64,8 @@ public class PantallaPreguntasController implements Initializable{
         count = 0;
         mostrarPregunta(count);
         btnDejarJugar.setVisible(false);
-        System.out.println("ARBOL");
-        System.out.println(arbolJuego.getArbol().inOrderRecursiveTraversal());
+
+
         listaFotos = Constants.cargarListaFotos();
         
         it = listaFotos.iterator();
@@ -198,15 +198,7 @@ public class PantallaPreguntasController implements Initializable{
         }
     }
     
-    private void setImagen(ImageView contenedor,String nombreImagen){
-        try{
-            FileInputStream input = new FileInputStream(nombreImagen);
-            Image foto = new Image(input);
-            contenedor.setImage(foto);
-        }catch(FileNotFoundException e){
-            System.out.println("No se encontro la foto");
-        }
-    }
+
     
     
     

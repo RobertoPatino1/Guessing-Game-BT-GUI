@@ -26,10 +26,9 @@ public class Lector {
             }
             
         }catch(FileNotFoundException e){
-            e.printStackTrace();
             System.out.println("Questions file does not exists!");
         }catch(IOException e){
-            e.printStackTrace();
+            System.out.println("IOException");
         }catch(Exception e){
             System.out.println("Unexpected exception");
         }
@@ -56,7 +55,6 @@ public class Lector {
             }
             
         }catch(FileNotFoundException e){
-            e.printStackTrace();
             System.out.println("Answers file does not exists!");
             
         }catch(IOException e){

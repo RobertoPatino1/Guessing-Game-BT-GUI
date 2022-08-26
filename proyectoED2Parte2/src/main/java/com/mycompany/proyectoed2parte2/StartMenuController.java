@@ -269,7 +269,7 @@ public static  int id = 0;
             }else{  
                 try{
                     
-                    int totalPreguntas = Integer.valueOf(txtCantidadPreguntas.getText());
+                    int totalPreguntas = Integer.valueOf(preguntas.size());
                     
                     //Seccionando la lista de preguntas en funcion del total de preguntas que debe hacer la computadora
                     preguntas = preguntas.subList(0, totalPreguntas);
@@ -356,6 +356,7 @@ public static  int id = 0;
             
         });
     }
+    
     
     
  

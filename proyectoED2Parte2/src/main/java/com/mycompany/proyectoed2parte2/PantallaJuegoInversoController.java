@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -24,6 +25,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import model.ArbolDecision;
 import model.Respuesta;
 import util.Constants;
@@ -162,6 +164,39 @@ public class PantallaJuegoInversoController implements Initializable {
     
     
     public void mostrarResultados(){
+        boolean condicion = validarRespuesta(respuestasJugador);
+        Label lblRespuestaFinal = new Label();
+        lblRespuestaFinal.setFont(new Font("Arial", 24));
+        btnDejarJugar.setVisible(true);
+        
+        
+        if(condicion){
+            lblPregunta.setText("Felicidades, has contestado correctamente\ntodas las preguntas!");
+            vboxCentro.getChildren().clear();
+            cargarImagen("archivos/imagenes/respuestaCorrecta.jpg");
+            vboxCentro.getChildren().addAll(lblPregunta,imgFoto);
+
+        }
+        else{
+            lblPregunta.setText("Lo siento, no le has atinado\n al animal que te mostré.\n Mejor suerte para la próxima: ");
+
+            vboxCentro.getChildren().clear();
+            cargarImagen("archivos/imagenes/sinSolucion.jpg");
+            vboxCentro.getChildren().addAll(lblPregunta,imgFoto);            
+        }
+        
+    }
+    
+    
+    private boolean validarRespuesta(ArrayList<String> respuestasJugador){
+        boolean resultado= false;
+        Comparator<String> cmp= (s1,s2)->{return s1.compareTo(s2);};
+        
+        String animalJugador = arbolJuego.recorrerArbolRespuestasInverso(respuestasJugador);
+        if(cmp.compare(animalJugador, lblAnimal.getText())==0){
+            resultado=true;
+        }
+        return resultado;
         
     }
 }

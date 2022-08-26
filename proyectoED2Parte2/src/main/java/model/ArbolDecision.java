@@ -200,4 +200,41 @@ public class ArbolDecision {
         }
     }
     
+    
+    public String recorrerArbolRespuestasInverso(ArrayList<String> listaRespuestas){
+
+        String retorno = "";
+        Stack<BinaryTree<String>> s = new Stack<>();
+        s.push(arbol);
+        int index=0;
+        while(!s.isEmpty()){
+            BinaryTree<String> tmp=s.pop();
+            
+            if(index==listaRespuestas.size()){
+                retorno =tmp.getRootContent();
+
+            }
+            else if(listaRespuestas.get(index).equalsIgnoreCase("si")){
+                if(tmp.getLeft()!=null){
+                    s.push(tmp.getLeft());
+                    index++;                   
+                }else{
+                    retorno =  "No se pudo encontrar la respuesta";
+                }
+
+            }
+            else if(listaRespuestas.get(index).equalsIgnoreCase("no")){
+                if(tmp.getRight()!=null){
+                    s.push(tmp.getRight());
+                    index++;              
+                }else{
+                    retorno =  "No se pudo encontrar la respuesta";
+                }
+
+            }
+        
+        }
+        return retorno;
+    }
+    
 }

@@ -1,4 +1,4 @@
-# ProyectoED2Parte2G-07-
+# Guessing Game with Binary Trees
 Segunda parte del proyecto de la materia Estructuras de datos
 
 ES:
